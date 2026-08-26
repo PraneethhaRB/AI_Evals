@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+groq
+python-dotenv
+pytest
+rouge-score
+scikit-learn
+requests
