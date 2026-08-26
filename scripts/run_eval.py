@@ -13,7 +13,7 @@ coach_agent_adapter, multiagent_adapter) based on its target_system field.
 import json
 import sys
 import os
-
+import time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from scorers.pipeline import evaluate_example
@@ -68,7 +68,7 @@ def run():
         output_guardrail_result = run_guardrails_post_generation(answer, report.faithfulness_score)
 
         reports.append(report)
-
+        time.sleep(2)  # avoid bursting Groq's shared TPM limit across judge + multiagent calls
         status = "PASS" if (report.faithfulness_passed and report.relevance_passed) else "FAIL"
         guardrail_flag = " [GUARDRAIL-BLOCKED]" if output_guardrail_result.blocked else ""
         print(f"[{status}]{guardrail_flag} {report.example_id} ({report.target_system}) "

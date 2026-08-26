@@ -16,6 +16,7 @@ load_dotenv()
 # --- LLM judge settings ---
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 JUDGE_MODEL = "openai/gpt-oss-20b"  # matches the multiagent_pipeline's model choice
+
 JUDGE_TEMPERATURE = 0.0  # deterministic-as-possible scoring; judges should not be creative
 
 # --- Guardrail / pass thresholds ---
@@ -77,7 +78,8 @@ MULTIAGENT_PIPELINE_URL = os.getenv(
 )
 
 SUBJECT_SYSTEM_TIMEOUT_SECONDS = 30
-
+MULTIAGENT_TIMEOUT_SECONDS = 120
+RAG_TIMEOUT_SECONDS = 60  # Railway free tier can cold-start similarly to Render
 # JWT for a dedicated test account, used by adapters that hit authenticated
 # FitConnect endpoints (Coach Agent, RAG /dashboard/ask). Get this by
 # logging in as your test user and copying the token from the login response.

@@ -41,14 +41,33 @@ tests/        Unit tests for scorers and guardrails (tested against known-good/b
 docs/         Scoring rubric, judge calibration notes, design doc
 ```
 
-## Status
-
 - [x] Phase 1: Golden dataset + scoring rubric
 - [x] Phase 2: Scoring engine (statistical + LLM-as-judge + consistency)
-- [ ] Phase 3: Guardrails layer
-- [ ] Phase 4: Integration with FitConnect RAG + Coach Agent + multi-agent system
-- [ ] Phase 5: Dashboard
-- [ ] Phase 6: Tests, config, Docker, design doc
+- [x] Phase 3: Guardrails layer (input: injection/scope, output: hallucination gate/PII/unsafe content)
+- [x] Phase 4: Integration with real FitConnect RAG, Coach Agent, and multiagent pipeline (live services, not mocks)
+- [x] Phase 5: Dashboard (FastAPI + React/recharts)
+- [x] Phase 6: Tests for scorers, Docker, judge calibration methodology, design doc
+
+## Real findings from evaluating live systems
+
+This eval suite was run against FitConnect's actual deployed services and
+surfaced genuine issues - not just passing scores. See
+`docs/design_doc.md` for the full writeup, including a Groq rate-limit
+failure traced through Render logs, and a RAG relevance pattern traced to
+a backend outage.
+
+## Running everything with Docker
+
+```bash
+docker compose up --build
+```
+API on `:8000`, dashboard on `:5173`.
+
+## Running tests
+
+```bash
+pytest tests/ -v
+```
 
 ## Running Phase 2 right now
 
